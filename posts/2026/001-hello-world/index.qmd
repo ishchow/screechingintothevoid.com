@@ -112,6 +112,51 @@ mise run new-post "My Post Title"
 
 This runs a bash script that auto-detects the current year, finds the next sequence number, slugifies the title, and creates the directory with a boilerplate `index.qmd` and empty `refs.bib`. Posts are created as drafts by default — set `draft: false` in the front matter when ready to publish.
 
+## How This Blog Was Actually Built: Spec-Driven Development with OpenSpec
+
+The entire setup described in this post — every config file, workflow, and script — was implemented by an AI coding assistant (GitHub Copilot [@GitHubCopilot2024]) following a structured specification process using OpenSpec [@OpenSpec2025].
+
+### What is OpenSpec?
+
+OpenSpec is a lightweight, open-source framework for spec-driven development with AI coding assistants [@OpenSpecDocs2025]. The core idea is simple: before any code is written, the human and the AI align on *what* needs to be built through a series of structured artifacts — a proposal, design document, detailed specifications, and an implementation task list. This stands in contrast to "vibe coding," where you prompt an AI and hope for the best.
+
+OpenSpec uses a two-folder model [@OpenSpec2025]: `openspec/specs/` holds the current state of the system's specifications, while `openspec/changes/` holds proposed changes that are in progress. Each change follows a schema (in this case, `spec-driven`) that defines the artifact pipeline:
+
+```
+proposal.md → design.md + specs/**/*.md → tasks.md → implementation
+```
+
+### How the Conversation Went
+
+The process started with an **explore** session — an interactive conversation where the human described what they wanted (a Quarto blog on CloudFlare Pages with academic citations) and the AI researched the feasibility, surfaced trade-offs, and helped make design decisions. Key decisions were made collaboratively:
+
+1. **Deployment strategy**: GitHub Actions + `cloudflare/pages-action` over CloudFlare's built-in build (because Quarto isn't in CF's default build image).
+2. **Theme**: Flatly/darkly pair with automatic toggle.
+3. **Citation style**: IEEE `[1]` numbered format with per-post `.bib` files.
+4. **URL structure**: `posts/{year}/{NNN}-{slug}/` after exploring and rejecting full date nesting (`YYYY/MM/DD/slug`) as too deep for the publishing frequency.
+5. **Post scaffolding**: mise task over a plain shell script, since mise was already in use.
+
+Once all decisions were locked in, OpenSpec's **propose** workflow generated the formal artifacts:
+
+- **`proposal.md`** — The "why": a blog for long-form content with citations, deployed to CloudFlare Pages.
+- **`design.md`** — The "how": five key technical decisions with rationale and alternatives considered.
+- **`specs/`** — Four capability specifications (`blog-scaffold`, `citation-system`, `deployment-pipeline`, `post-authoring`), each with testable requirements written in `SHALL`/`MUST` language and `WHEN`/`THEN` scenarios.
+- **`tasks.md`** — 17 implementation tasks grouped into five phases, each a checkbox that the AI works through sequentially.
+
+### Why This Matters
+
+The spec-driven approach had a concrete benefit: every file in this repository traces back to a requirement in a spec, which traces back to a decision in the design, which traces back to the motivation in the proposal. When the AI implemented the tasks, it wasn't guessing — it was following a contract that both parties had agreed to.
+
+For example, the `scripts/new-post.sh` script exists because of this requirement in `specs/post-authoring/spec.md`:
+
+> The task SHALL automatically determine the current year and the next available 3-digit zero-padded sequence number within that year's directory.
+
+And the `ieee.csl` file at the project root exists because of this design decision:
+
+> Download `ieee.csl` to the project root, reference it from `posts/_metadata.yml` so all posts inherit it.
+
+The OpenSpec artifacts for this change live in `openspec/changes/quarto-blog-setup/` and are committed to the repository — you can read the full proposal, design, specs, and task list to see exactly how the conversation between human and AI was structured.
+
 ## What's Next
 
 With the infrastructure in place, the focus shifts to what matters: writing. Future posts will cover book reviews, essays, and other long-form explorations — all written by a human, with citations.
