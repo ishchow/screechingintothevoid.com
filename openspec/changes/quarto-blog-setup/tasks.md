@@ -28,4 +28,4 @@
 - [x] 5.1 Run `quarto render` and confirm the site builds successfully with no errors
 - [x] 5.2 Confirm the listing page discovers posts via the recursive glob
 - [x] 5.3 Confirm the navbar displays correctly with title, About link, search, and theme toggle
-- [ ] 5.4 Commit all files to the repository
+- [x] 5.4 Commit all files to the repository
