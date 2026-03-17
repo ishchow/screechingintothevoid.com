@@ -31,9 +31,8 @@ mkdir -p "$POST_DIR"
 cat > "${POST_DIR}/index.qmd" <<EOF
 ---
 title: "${TITLE}"
-author: "Author"
 date: "${DATE}"
-categories: []
+description: ""
 bibliography: refs.bib
 draft: true
 ---

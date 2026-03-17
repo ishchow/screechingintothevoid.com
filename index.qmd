@@ -1,9 +1,13 @@
 ---
-title: "Screeching Into The Void"
+pagetitle: "Screeching Into The Void"
 listing:
   contents: "posts/**/index.qmd"
   sort: "date desc"
-  type: default
-  categories: true
+  type: table
+  fields: [date, title, reading-time]
+  categories: false
+  sort-ui: false
+  filter-ui: false
+  table-hover: true
   feed: true
 ---
