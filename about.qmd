@@ -2,4 +2,4 @@
 title: "About"
 ---
 
-Welcome to Screeching Into The Void — a blog for long-form book reviews, essays, and other written explorations.
+TODO: Fill this in myself when I get a chance.
