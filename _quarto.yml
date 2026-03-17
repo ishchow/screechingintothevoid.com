@@ -1,0 +1,27 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+    - "posts/**/*.qmd"
+
+website:
+  title: "Screeching Into The Void"
+  site-url: "https://screechingintothevoid.com"
+  navbar:
+    left:
+      - text: "Home"
+        href: index.qmd
+    right:
+      - about.qmd
+      - icon: rss
+        href: index.xml
+  page-footer:
+    center: "© 2026 Screeching Into The Void"
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    css: styles.css

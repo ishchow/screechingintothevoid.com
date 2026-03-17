@@ -1,0 +1,9 @@
+---
+title: "Screeching Into The Void"
+listing:
+  contents: "posts/**/index.qmd"
+  sort: "date desc"
+  type: default
+  categories: true
+  feed: true
+---
