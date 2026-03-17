@@ -1,9 +1,7 @@
 ---
 title: "Hello World: How This Blog Was Built"
-author: "Screeching Into The Void"
 date: "2026-03-17"
 description: "A technical walkthrough of how this blog was architected using Quarto, GitHub Actions, and CloudFlare Pages."
-categories: [meta, quarto, cloudflare]
 bibliography: refs.bib
 draft: false
 ---
