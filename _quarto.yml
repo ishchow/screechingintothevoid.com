@@ -7,6 +7,7 @@ project:
 
 website:
   title: "Screeching Into The Void"
+  favicon: favicon.svg
   site-url: "https://screechingintothevoid.com"
   open-graph: true
   twitter-card: true
