@@ -1,4 +1,4 @@
 freeze: true
 author: "Ishaat Chowdhury"
 citation: true
-csl: ../ieee.csl
+csl: ../chicago-notes-bibliography.csl

@@ -33,11 +33,11 @@ Quarto is an open-source scientific and technical publishing system that turns m
 The deployment pipeline follows a pattern that Quarto's CI documentation describes as "Local Execution with CI Rendering" [@QuartoCI2024] — though in this case there's no computational code to execute locally, since all posts are pure prose.
 
 ```
-┌─────────────┐     ┌──────────────┐     ┌──────────────┐
+┌─────────────┐     ┌───────────────┐     ┌──────────────┐
 │ Write .qmd  │────▶│ GitHub Actions│────▶│ CloudFlare   │
 │ + refs.bib  │     │ quarto render │     │ Pages        │
 │ git push    │     │ pages-action  │     │ serves _site │
-└─────────────┘     └──────────────┘     └──────────────┘
+└─────────────┘     └───────────────┘     └──────────────┘
 ```
 
 ### Why not CloudFlare Pages' built-in build?
