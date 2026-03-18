@@ -22,7 +22,7 @@ The stack is straightforward: **Quarto** for authoring and static site generatio
 
 Quarto is an open-source scientific and technical publishing system that turns markdown into polished HTML, PDF, and other formats [@QuartoBlog2024]. For a blog focused on long-form writing, Quarto offers several advantages over other static site generators:
 
-1. **Native citation support.** Quarto uses Pandoc's citation engine under the hood, which means you can write `[@AuthorKey2024]` in your markdown and get properly formatted references in any citation style [@QuartoCitations2024]. This blog uses the IEEE style, which renders in-text citations as numbered references like `[1]` — clean and unobtrusive for a blog context.
+1. **Native citation support.** Quarto uses Pandoc's citation engine under the hood, which means you can write `[@AuthorKey2024]` in your markdown and get properly formatted references in any citation style [@QuartoCitations2024]. This blog uses the Chicago Notes-Bibliography style, which renders citations as footnotes with a full bibliography at the end — a natural fit for essays and media criticism.
 
 2. **Bootswatch theme integration.** Quarto ships with 25 Bootswatch themes [@Bootswatch2024] and supports light/dark theme pairing out of the box [@QuartoThemes2024]. This site uses the *flatly* and *darkly* pair, which are designed to work together with matching typography and spacing.
 
@@ -94,11 +94,11 @@ listing:
 
 Navigation is kept minimal — just a top navbar [@QuartoNavigation2024] with the site title, an About page link, search, and the automatic light/dark theme toggle. No sidebars, no complex hierarchy. It's a blog, not a documentation site.
 
-## Citations and the IEEE Style
+## Citations and the Chicago Notes-Bibliography Style
 
-Each post gets its own `refs.bib` file containing BibTeX entries for that post's references. A shared `posts/_metadata.yml` file sets the citation style globally using the IEEE CSL file [@CSLStyles2024], so individual posts don't need to repeat the configuration.
+Each post gets its own `refs.bib` file containing BibTeX entries for that post's references. A shared `posts/_metadata.yml` file sets the citation style globally using the Chicago Notes-Bibliography CSL file [@CSLStyles2024], so individual posts don't need to repeat the configuration.
 
-The IEEE style was chosen because its numbered `[1]` format is concise and well-suited to hyperlinked text — readers can glance at the reference list without inline citations disrupting the flow of prose [@QuartoCitations2024].
+The Chicago Notes-Bibliography style was chosen because its footnote-based format is the standard for humanities writing — essays, literary criticism, and media analysis. Citations appear as numbered footnotes that expand into full references in a bibliography at the end, keeping the prose clean while providing rich source detail [@QuartoCitations2024].
 
 ## Post Scaffolding
 
@@ -130,7 +130,7 @@ The process started with an **explore** session — an interactive conversation 
 
 1. **Deployment strategy**: GitHub Actions + `cloudflare/pages-action` over CloudFlare's built-in build (because Quarto isn't in CF's default build image).
 2. **Theme**: Flatly/darkly pair with automatic toggle.
-3. **Citation style**: IEEE `[1]` numbered format with per-post `.bib` files.
+3. **Citation style**: Chicago Notes-Bibliography (footnotes + bibliography) with per-post `.bib` files.
 4. **URL structure**: `posts/{year}/{NNN}-{slug}/` after exploring and rejecting full date nesting (`YYYY/MM/DD/slug`) as too deep for the publishing frequency.
 5. **Post scaffolding**: mise task over a plain shell script, since mise was already in use.
 
@@ -149,9 +149,9 @@ For example, the `scripts/new-post.sh` script exists because of this requirement
 
 > The task SHALL automatically determine the current year and the next available 3-digit zero-padded sequence number within that year's directory.
 
-And the `ieee.csl` file at the project root exists because of this design decision:
+And the `chicago-notes-bibliography.csl` file at the project root exists because of this design decision:
 
-> Download `ieee.csl` to the project root, reference it from `posts/_metadata.yml` so all posts inherit it.
+> Download `chicago-notes-bibliography.csl` to the project root, reference it from `posts/_metadata.yml` so all posts inherit it.
 
 The OpenSpec artifacts for this change live in `openspec/changes/quarto-blog-setup/` and are committed to the repository — you can read the full proposal, design, specs, and task list to see exactly how the conversation between human and AI was structured.
 
