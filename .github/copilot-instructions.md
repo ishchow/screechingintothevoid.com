@@ -47,7 +47,7 @@ New post branches are named `{year}-{NNN}` (e.g., `2026-002`), always created fr
 ## Key Conventions
 
 - **Author**: Set globally in `posts/_metadata.yml`. Do not add `author` to individual post front matter unless overriding.
-- **Citations**: IEEE numbered style (`[1]`) via `ieee.csl` at the project root, configured in `posts/_metadata.yml`. Each post has its own `refs.bib` file.
+- **Citations**: Chicago Notes-Bibliography style (footnotes + bibliography) via `chicago-notes-bibliography.csl` at the project root, configured in `posts/_metadata.yml`. Each post has its own `refs.bib` file.
 - **No categories**: The site does not use categories.
 - **Homepage listing**: Table format showing date, title, and reading time only.
 - **Description field**: Every post should have a `description` in its front matter — this powers Open Graph and RSS previews.
