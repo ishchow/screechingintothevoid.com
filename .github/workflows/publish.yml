@@ -1,0 +1,55 @@
+name: Deploy to CloudFlare Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  deployments: write
+  pull-requests: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install soupault
+        env:
+          SOUPAULT_VERSION: "5.3.0"
+        run: |
+          echo "Downloading and unpacking soupault $SOUPAULT_VERSION"
+          wget https://github.com/PataphysicalSociety/soupault/releases/download/$SOUPAULT_VERSION/soupault-$SOUPAULT_VERSION-linux-x86_64.tar.gz
+          tar xvf soupault-$SOUPAULT_VERSION-linux-x86_64.tar.gz
+          sudo mv -v ./soupault-$SOUPAULT_VERSION-linux-x86_64/soupault /usr/bin/
+
+      - name: Build the site
+        run: soupault
+
+      - name: Deploy to CloudFlare Pages
+        id: deploy
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: screechingintothevoid
+          directory: build
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment preview URL on PR
+        if: github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: cloudflare-preview
+          message: |
+            ## ☁️ Cloudflare Pages Deploy
+
+            | | |
+            |---|---|
+            | **Latest commit:** | `${{ github.event.pull_request.head.sha }}` |
+            | **Status:** | ✅ Deploy successful! |
+            | **Preview URL:** | ${{ steps.deploy.outputs.url }} |
+            | **Branch Preview URL:** | ${{ steps.deploy.outputs.alias }} |
