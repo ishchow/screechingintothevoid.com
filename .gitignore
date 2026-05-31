@@ -1,9 +1,2 @@
-/_site/
-/_freeze/
-/.quarto/
-*.html
-!index.qmd
-!about.qmd
+/build
 .DS_Store
-
-**/*.quarto_ipynb
