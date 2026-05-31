@@ -192,15 +192,13 @@
   selector = ["p#post-excerpt", "p"]
 
 [index]
-  index = true
-
   sort_descending = true
   sort_type = "calendar"
   sort_by = "date"
-
   date_formats = ["%F"]
 
 [index.views.blog]
+  section = "posts"
   index_selector = "#blog-index"
   index_item_template = """
     <h2><a href="{{url}}">{{title}}</a></h2>
