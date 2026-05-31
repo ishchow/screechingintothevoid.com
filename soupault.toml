@@ -136,7 +136,9 @@
   # Soupault supports a variety of page source character encodings,
   # the default encoding is UTF-8
   page_character_encoding = "utf-8"
- 
+
+[asset_processors]
+  css = "minify -o {{target_dir}}/{{source_file_name}} {{source_file_path}}"
 
 # It is possible to store pages in any format if you have a program
 # that converts it to HTML and writes it to standard output.

@@ -17,17 +17,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install soupault
-        env:
-          SOUPAULT_VERSION: "5.3.0"
-        run: |
-          echo "Downloading and unpacking soupault $SOUPAULT_VERSION"
-          wget https://github.com/PataphysicalSociety/soupault/releases/download/$SOUPAULT_VERSION/soupault-$SOUPAULT_VERSION-linux-x86_64.tar.gz
-          tar xvf soupault-$SOUPAULT_VERSION-linux-x86_64.tar.gz
-          sudo mv -v ./soupault-$SOUPAULT_VERSION-linux-x86_64/soupault /usr/bin/
+      - uses: jdx/mise-action@v3
 
       - name: Build the site
-        run: soupault
+        run: mise run build
 
       - name: Deploy to CloudFlare Pages
         id: deploy

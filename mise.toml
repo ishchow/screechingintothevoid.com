@@ -1,5 +1,6 @@
 [tools]
   "github:PataphysicalSociety/soupault" = "5.3.0"
+  minify = "2.24.13"
 
 [tasks.clean]
 description = "Remove build contents"
