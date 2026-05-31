@@ -199,10 +199,58 @@
 
 [index.views.blog]
   section = "posts"
+  include_subsections = true
   index_selector = "#blog-index"
-  index_item_template = """
-    <h2><a href="{{url}}">{{title}}</a></h2>
-    <p><strong>Last update:</strong> {{date}}.</p>
-    <p>{{excerpt}}</p>
-    <a href="{{url}}">Read more</a>
-  """
+
+  lua_source = '''
+    year_entries = {}
+    years = {}
+
+    i = 1
+    while site_index[i] do
+      entry = site_index[i]
+      year = entry.nav_path[2]
+      if not year then year = "unknown" end
+
+      if not year_entries[year] then
+        year_entries[year] = {}
+        years[Table.length(years) + 1] = year
+      end
+
+      year_entries[year][Table.length(year_entries[year]) + 1] = entry
+      i = i + 1
+    end
+
+    function compare_desc(a, b)
+      if a > b then return -1
+      elseif a < b then return 1
+      else return 0
+      end
+    end
+
+    Table.sort(compare_desc, years)
+
+    html = ""
+    j = 1
+    while years[j] do
+      year = years[j]
+      html = html .. "<h2>" .. year .. "</h2>\n<ul>\n"
+
+      k = 1
+      while year_entries[year][k] do
+        e = year_entries[year][k]
+        title = e.title
+        if not title then title = "(untitled)" end
+        date = e.date
+        if not date then date = "" end
+        html = html .. "<li>" .. date .. " | <a href=\"" .. e.url .. "\">" .. title .. "</a></li>\n"
+        k = k + 1
+      end
+
+      html = html .. "</ul>\n"
+      j = j + 1
+    end
+
+    container = HTML.select_one(page, config["index_selector"])
+    HTML.append_child(container, HTML.parse(html))
+  '''
