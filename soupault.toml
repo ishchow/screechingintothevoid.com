@@ -196,70 +196,9 @@
   section = "posts"
   include_subsections = true
   index_selector = "#blog-index"
-
-  lua_source = '''
-    month_names = {"January", "February", "March", "April", "May", "June",
-                   "July", "August", "September", "October", "November", "December"}
-
-    function format_date(date_str)
-      if not date_str or date_str == "" then return "" end
-      month_num = tonumber(strsub(date_str, 6, 7))
-      day = tonumber(strsub(date_str, 9, 10))
-      if not month_num or not day then return date_str end
-      return month_names[month_num] .. " " .. tostring(day)
-    end
-
-    year_entries = {}
-    years = {}
-
-    i = 1
-    while site_index[i] do
-      entry = site_index[i]
-      year = entry.nav_path[2]
-      if not year then year = "unknown" end
-
-      if not year_entries[year] then
-        year_entries[year] = {}
-        years[Table.length(years) + 1] = year
-      end
-
-      year_entries[year][Table.length(year_entries[year]) + 1] = entry
-      i = i + 1
-    end
-
-    function compare_desc(a, b)
-      if a > b then return -1
-      elseif a < b then return 1
-      else return 0
-      end
-    end
-
-    Table.sort(compare_desc, years)
-
-    html = ""
-    j = 1
-    while years[j] do
-      year = years[j]
-      html = html .. "<h2>" .. year .. "</h2>\n<ul>\n"
-
-      k = 1
-      while year_entries[year][k] do
-        e = year_entries[year][k]
-        title = e.title
-        if not title then title = "(untitled)" end
-        date = format_date(e.date)
-        if date ~= "" then date = date .. " | " end
-        html = html .. "<li>" .. date .. "<a href=\"" .. e.url .. "\">" .. title .. "</a></li>\n"
-        k = k + 1
-      end
-
-      html = html .. "</ul>\n"
-      j = j + 1
-    end
-
-    container = HTML.select_one(page, config["index_selector"])
-    HTML.append_child(container, HTML.parse(html))
-  '''
+  index_item_template = """
+    <li>{{ date }} | <a href="{{ url }}">{{ title }}</a></li>
+  """
 
 [widgets.atom]
   widget = "atom"
