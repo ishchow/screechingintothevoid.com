@@ -175,10 +175,10 @@
   # but you can set this option to false to delete just the first one
   delete_all = true
 
-[widgets.insert-sakura-css]
+[widgets.insert-css]
   widget = "insert_html"
   selector = "head"
-  html = """ <link rel="stylesheet" href="/styles/sakura-vader.css" type="text/css"> """
+  html = """ <link rel="stylesheet" href="/styles/latex.css" type="text/css"> """
 
 [index.fields.title]
   selector = ["h1"]
