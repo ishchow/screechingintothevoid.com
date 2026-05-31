@@ -14,3 +14,7 @@ run = "soupault"
 description = "Serve the site locally"
 depends = ["build"]
 run = "python -m http.server 8000 --directory build/ --bind 127.0.0.1"
+
+[tasks.new-post]
+description = "Create a new blog post"
+run = "scripts/new-post.sh \"{{arg(name='title')}}\""
