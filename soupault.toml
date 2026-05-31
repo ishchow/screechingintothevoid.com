@@ -102,7 +102,7 @@
   # Page content is inserted into a certain element of the page template.
   # This option is a CSS selector that is used for locating that element.
   # By default the content is inserted into the <body>
-  default_content_selector = "body"
+  default_content_selector = "main"
 
   # You can choose where exactly to insert the content in its parent element.
   # The default is append_child, but there are more, including prepend_child and replace_content
@@ -153,20 +153,12 @@
 # Takes the content of the first <h1> and inserts it into the <title>
 [widgets.page-title]
   widget = "title"
-  selector = "h1"
-  default = "Screening Into the Void"
-  append = " &mdash; Screening Into the Void"
+  selector = ["#title", "h1", "h2", "h3"]
+  default = "Screeching into the Void"
 
   # Insert a <title> in a page if it doesn't have one already.
   # By default soupault assumes if it's missing, you don't want it.
   force = false
-
-# Inserts a generator meta tag in the page <head>
-# Just for demonstration, feel free to remove
-[widgets.generator-meta]
-  widget = "insert_html"
-  html = '<meta name="generator" content="soupault">'
-  selector = "head"
 
 # <blink> elements are evil, delete them all
 [widgets.no-blink]
@@ -177,13 +169,14 @@
   # but you can set this option to false to delete just the first one
   delete_all = true
 
-[widgets.insert-css]
-  widget = "insert_html"
-  selector = "head"
-  html = """ <link rel="stylesheet" href="/styles/latex.css" type="text/css"> """
+[custom_options]
+  site_url = "https://screechingintothevoid.com"
+  site_title = "Screeching into the Void"
+  site_author = "Ishaat Chowdhury"
+  site_author_email = "ishaatchowdhury@outlook.com"
 
 [index.fields.title]
-  selector = ["h1"]
+  selector = ["h1", "h2", "h3"]
 
 [index.fields.date]
   selector = ["time#post-date", "time"]
@@ -267,3 +260,9 @@
     container = HTML.select_one(page, config["index_selector"])
     HTML.append_child(container, HTML.parse(html))
   '''
+
+[widgets.atom]
+  widget = "atom"
+  page = "index.html"
+  feed_file = "atom.xml"
+  use_section = "posts"
