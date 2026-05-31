@@ -1,2 +1,16 @@
 [tools]
   "github:PataphysicalSociety/soupault" = "5.3.0"
+
+[tasks.clean]
+description = "Remove build contents"
+run = "rm -rf build/*"
+
+[tasks.build]
+description = "Build the site with soupault"
+depends = ["clean"]
+run = "soupault"
+
+[tasks.serve]
+description = "Serve the site locally"
+depends = ["build"]
+run = "python -m http.server 8000 --directory build/ --bind 127.0.0.1"

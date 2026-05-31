@@ -174,3 +174,37 @@
   # By default this widget deletes all elements matching the selector,
   # but you can set this option to false to delete just the first one
   delete_all = true
+
+[widgets.insert-sakura-css]
+  widget = "insert_html"
+  selector = "head"
+  html = """ <link rel="stylesheet" href="/styles/sakura-vader.css" type="text/css"> """
+
+[index.fields.title]
+  selector = ["h1"]
+
+[index.fields.date]
+  selector = ["time#post-date", "time"]
+  extract_attribute = "datetime"
+  fallback_to_content = true
+
+[index.fields.excerpt]
+  selector = ["p#post-excerpt", "p"]
+
+[index]
+  index = true
+
+  sort_descending = true
+  sort_type = "calendar"
+  sort_by = "date"
+
+  date_formats = ["%F"]
+
+[index.views.blog]
+  index_selector = "#blog-index"
+  index_item_template = """
+    <h2><a href="{{url}}">{{title}}</a></h2>
+    <p><strong>Last update:</strong> {{date}}.</p>
+    <p>{{excerpt}}</p>
+    <a href="{{url}}">Read more</a>
+  """
