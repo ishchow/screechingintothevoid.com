@@ -2,13 +2,30 @@
 
 Source code for [screechingintothevoid.com](https://screechingintothevoid.com/).
 Built with [soupault](https://soupault.net/).
-Hosted on Cloudflare Pages deployed using GitHub Actions.
+Hosted on Cloudflare Pages.
+Deployed using GitHub Actions.
 
-# Serve Site Locally
+# Setup
 
-First install [mise](https://mise.jdx.dev/installing-mise.html).
+Install [mise](https://mise.jdx.dev/). Then run the following to setup dependencies.
 
-Then, run `mise run serve` to serve the site locally.
+```bash
+mise install
+```
+
+# Dev Server
+
+```bash
+mise serve
+```
+
+# Build
+
+```bash
+mise build
+```
+
+Output is in `build/`.
 
 # Adding New Posts
 
