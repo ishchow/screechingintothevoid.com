@@ -1,3 +1,21 @@
+[tools]
+  "github:PataphysicalSociety/soupault" = "5.3.0"
+  minify = "2.24.13"
+
+[tasks.clean]
+description = "Remove build contents"
+run = "rm -rf build/*"
+
+[tasks.build]
+description = "Build the site with soupault"
+depends = ["clean"]
+run = "soupault"
+
+[tasks.serve]
+description = "Serve the site locally"
+depends = ["build"]
+run = "python -m http.server 8000 --directory build/ --bind 127.0.0.1"
+
 [tasks.new-post]
-description = "Scaffold a new blog post"
-run = "bash scripts/new-post.sh {{arg(name='title')}}"
+description = "Create a new blog post"
+run = "scripts/new-post.sh \"{{arg(name='title')}}\""

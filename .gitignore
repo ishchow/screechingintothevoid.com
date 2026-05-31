@@ -1,9 +1,3 @@
-/_site/
-/_freeze/
-/.quarto/
-*.html
-!index.qmd
-!about.qmd
+/build
+/.soupault-cache
 .DS_Store
-
-**/*.quarto_ipynb

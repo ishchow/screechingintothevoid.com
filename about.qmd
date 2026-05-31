@@ -1,5 +1,0 @@
----
-title: "About"
----
-
-TODO: Fill this in myself when I get a chance.
